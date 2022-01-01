@@ -1,0 +1,27 @@
+Question 1 >>>>>>>>>>
+
+mysql> delimiter //
+mysql> create function studentCount(facName VARCHAR(40) )
+    ->                  returns INT
+    -> DETERMINISTIC
+    ->          BEGIN
+    ->                  declare count INT ;
+    ->                          select count(snum) into count
+    ->                          from enrolled, class, faculty where faculty.fid = class.fid
+    ->                          and class.name = enrolled.cname and faculty.fname = facName ;
+    ->                          return count ;
+    ->
+    ->          END ;
+    -> //
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> select fname from faculty where studentCount(fname) > 1;
+    -> //
++-----------------+
+| fname           |
++-----------------+
+| Ivana Teach     |
+| Richard Jackson |
+| Linda Davis     |
++-----------------+
+3 rows in set (0.07 sec)

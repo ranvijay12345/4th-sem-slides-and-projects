@@ -1,0 +1,145 @@
+                                                  ((((((((((((((((((((((((((((((((((((((((( Assignment 3 ))))))))))))))))))))))))))))))))
+
+
+ //// Que 1 /////
+
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| lab1               |
+| lab3               |
+| mysql              |
+| performance_schema |
++--------------------+
+5 rows in set (0.00 sec)
+
+////  Que 2 ////
+
+mysql> use lab3;
+Database changed
+mysql> show tables;
++----------------+
+| Tables_in_lab3 |
++----------------+
+| class          |
+| enrolled       |
+| faculty        |
+| student        |
++----------------+
+4 rows in set (0.01 sec)
+
+
+/////Que. 3 /////
+
+
+mysql> select * from class where room = 'R128';
++--------------------------+-----------------+------+-----------+
+| name                     | meet_at         | room | fid       |
++--------------------------+-----------------+------+-----------+
+| Archaeology of the Incas | MWF 3-4:15      | R128 | 248965255 |
+| Dairy Herd Management    | TuTh 12:30-1:45 | R128 | 356187925 |
+| Data Structures          | MWF 10          | R128 | 489456522 |
+| Introduction to Math     | TuTh 8-9:30     | R128 | 489221823 |
+| Patent Law               | F 1-2:50        | R128 |  90873519 |
++--------------------------+-----------------+------+-----------+
+5 rows in set (0.00 sec)
+
+////Que. 4 /////
+
+
+mysql> select faculty.fid, fname, deptid from faculty natural join class
+    -> where class.room = 'R15';
++-----------+------------------+--------+
+| fid       | fname            | deptid |
++-----------+------------------+--------+
+|  11564812 | John Williams    |     68 |
+|  90873519 | Elizabeth Taylor |     11 |
+| 254099823 | Patricia Jones   |     68 |
+| 489221823 | Richard Jackson  |     33 |
+| 159542516 | William Moore    |     33 |
++-----------+------------------+--------+
+5 rows in set (0.01 sec)
+
+
+////Que 5 ////
+
+
+mysql> select faculty.fname
+    -> from faculty,class
+    -> where faculty.fid = class.fid and class.name = 'Orbital Mechanics';
++---------------+
+| fname         |
++---------------+
+| John Williams |
++---------------+
+1 row in set (0.00 sec)
+
+
+////Que. 6 ////
+
+mysql> select student.sname
+    -> from student,faculty,class,enrolled
+    -> where student.snum=enrolled.snum and enrolled.cname = class.name and class.fid = faculty.fid and faculty.fname='John Williams';
++--------------+
+| cname        |
++--------------+
+| Kenneth Hill |
++--------------+
+1 row in set (0.01 sec)
+
+
+////Que. 7 ////
+
+
+mysql> select student.sname from student,faculty,class,enrolled
+    -> where student.snum=enrolled.snum and faculty.fid = class.fid and faculty.fname = 'Ivana Teach' and enrolled.sname = class.name and level = 'SR';
++-----------+
+| sname     |
++-----------+
+| Ana Lopez |
++-----------+
+1 row in set (0.00 sec)
+
+//// Que 8 ////
+
+mysql> select cname from student,enrolled where student.snum = enrolled.snum and sname = 'Lisa Walker';
++-------------------------+
+| cname                   |
++-------------------------+
+| Database Systems        |
+| Operating System Design |
++-------------------------+
+2 rows in set (0.00 sec)
+
+
+///Que 9 /////
+
+mysql> select sname from student natural join enrolled;
++--------------------+
+| sname              |
++--------------------+
+| Joseph Thompson    |
+| Christopher Garcia |
+| Paul Hall          |
+| Lisa Walker        |
+| Ana Lopez          |
+| Luis Hernandez     |
+| Ana Lopez          |
+| Karen Scott        |
+| Joseph Thompson    |
+| Christopher Garcia |
+| Lisa Walker        |
+| Karen Scott        |
+| Ana Lopez          |
+| Luis Hernandez     |
+| Juan Rodriguez     |
+| Juan Rodriguez     |
+| Juan Rodriguez     |
+| Kenneth Hill       |
+| Susan Martin       |
+| Betty Adams        |
++--------------------+
+20 rows in set (0.00 sec)

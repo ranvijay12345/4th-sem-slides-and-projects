@@ -1,0 +1,9 @@
+https://www.tutorialspoint.com/unix/index.htm
+
+
+
+https://www.javatpoint.com/steps-to-write-and-execute-a-shell-script
+
+
+
+http://www.csl.mtu.edu/cs4411.ck/www/NOTES/process/fork/exec.html

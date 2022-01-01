@@ -1,0 +1,321 @@
+mysql> use lab5
+Database changed
+mysql> create database lab9;
+Query OK, 1 row affected (0.06 sec)
+
+
+mysql> use lab9
+Database changed
+mysql> create table Student (snum int primary key, sname varchar(40), major varchar(40), level varchar(40), age int );
+Query OK, 0 rows affected (0.11 sec)
+
+
+
+mysql>
+mysql> create table faculty ( fid int primary key, fname varchar(40), deptid int );
+Query OK, 0 rows affected (0.09 sec)
+
+
+
+mysql> create table class ( name varchar(40) primary key , meets_at varchar(40), room varchar(40), fid int references faculty );
+Query OK, 0 rows affected (0.09 sec)
+
+
+
+mysql> create table enrolled ( snum int references student , cname varchar(40) references class(name));
+Query OK, 0 rows affected (0.10 sec)
+
+
+
+mysql> alter table student add column total_credits int default 0;
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+
+
+mysql> alter table class add column credits int ;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+
+
+mysql> alter table enrolled add column grade varchar(10) default NULL;
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+
+
+mysql> insert into student(snum, sname, major, level, age) values
+    -> (099354543,'Susan Martin','Law','JR',20),
+    -> (112348546,'Joseph Thompson','Computer Science','SO',19),
+    -> (115987938,'Christopher Garcia','Computer Science','JR',20),
+    -> (132977562,'Angela Martinez','History','SR',20),
+    -> (269734834,'Thomas Robinson','Psyhcology','SO',18),
+    -> (280158572,'Margaret Clark','Animal Science','FR',18),
+    -> (301221823,'Juan Rodriguez','Psyhcology','JR',20),
+    -> (318548912,'Dorthy Lewis','Finance','FR',18),
+    -> (320874981,'Daniel Lee','Electrical Engineering','FR',17),
+    -> (322654189,'Lisa Walker','Computer Science','SO',17),
+    -> (348121549,'Paul Hall','Computer Science','JR',18),
+    -> (351565322,'Nancy Allen','Accounting','JR',19),
+    -> (451519864,'Mark Young','Finance','FR',18),
+    -> (455798411,'Luis Hernandez','Electrical Engineering','FR',17),
+    -> (462156489,'Donald King','Mechanical Engineering','SO',19),
+    -> (550156548,'George Wright','Education','SR',21),
+    -> (552455318,'Ana Lopez','Computer Engineering','SR',19),
+    -> (556784565,'Kenneth Hill','Civil Engineering','SR',21),
+    -> (567354612,'Karen Scott','Computer Engineering','FR',18),
+    -> (573284895,'Steven Green','Kinesiology','SO',19),
+    -> (574489456,'Betty Adams','Economics','JR',20),
+    -> (578875478,'Edward Baker','Veterinary Medicine','SR',21);
+Query OK, 22 rows affected (0.06 sec)
+Records: 22  Duplicates: 0  Warnings: 0
+
+mysql> insert into faculty values
+    -> (142519864,'Ivana Teach',20),
+    -> (242518965,'James Smith',68),
+    -> (141582651,'Mary Johnson',20),
+    -> (011564812,'John Williams',68),
+    -> (254099823,'Patricia Jones',68),
+    -> (356187925,'Robert Brown',12),
+    -> (489456522,'Linda Davis',20),
+    -> (287321212,'Michael Miller',12),
+    -> (248965255,'Barbara Wilson',12),
+    -> (159542516,'William Moore',33),
+    -> (090873519,'Elizabeth Taylor',11),
+    -> (486512566,'David Anderson',20),
+    -> (619023588,'Jennifer Thomas',11),
+    -> (489221823,'Richard Jackson',33),
+    -> (548977562,'Ulysses Teach',20);
+Query OK, 15 rows affected (0.06 sec)
+Records: 15  Duplicates: 0  Warnings: 0
+
+mysql> insert into class values
+    -> ('Data Structures','MWF 10','R128',489456522, 3),
+    -> ('Database Systems','MWF 12:30-1:45','1320 DCL',142519864, 4),
+    -> ('Operating System Design','TuTh 12-1:20','20 AVW',489456522, 5),
+    -> ('Archaeology of the Incas','MWF 3-4:15','R128',248965255, 4),
+    -> ('Aviation Accident Investigation','TuTh 1-2:50','Q3',011564812, 2),
+    -> ('Air Quality Engineering','TuTh 10:30-11:45','R15',011564812, 4),
+    -> ('Introductory Latin','MWF 3-4:15','R12',248965255, 3),
+    -> ('American Political Parties','TuTh 2-3:15','20 AVW',619023588, 4),
+    -> ('Social Cognition','Tu 6:30-8:40','R15',159542516, 4),
+    -> ('Perception','MTuWTh 3','Q3',489221823, 3),
+    -> ('Multivariate Analysis','TuTh 2-3:15','R15',090873519, 4),
+    -> ('Patent Law','F 1-2:50','R128',090873519, 3),
+    -> ('Urban Economics','MWF 11','20 AVW',489221823, 2),
+    -> ('Organic Chemistry','TuTh 12:30-1:45','R12',489221823, 4),
+    -> ('Marketing Research','MW 10-11:15','1320 DCL',489221823, 5),
+    -> ('Seminar in American Art','M 4','R15',489221823, 4),
+    -> ('Orbital Mechanics','MWF 8','1320 DCL',011564812, 3),
+    -> ('Dairy Herd Management','TuTh 12:30-1:45','R128',356187925, 2),
+    -> ('Communication Networks','MW 9:30-10:45','20 AVW',141582651, 3),
+    -> ('Optical Electronics','TuTh 12:30-1:45','R15',254099823, 4),
+    -> ('Introduction to Math','TuTh 8-9:30','R128',489221823, 5)
+    -> ;
+Query OK, 21 rows affected (0.06 sec)
+Records: 21  Duplicates: 0  Warnings: 0
+
+mysql> insert into enrolled values
+    -> (112348546,'Database Systems', 'A'),
+    -> (115987938,'Database Systems', 'B'),
+    -> (348121549,'Database Systems', 'F'),
+    -> (322654189,'Database Systems', null),
+    -> (552455318,'Database Systems', 'C'),
+    -> (455798411,'Operating System Design', 'A'),
+    -> (552455318,'Operating System Design', 'A'),
+    -> (567354612,'Operating System Design', 'B'),
+    -> (112348546,'Operating System Design', 'C'),
+    -> (115987938,'Operating System Design', 'F'),
+    -> (322654189,'Operating System Design', 'F'),
+    -> (567354612,'Data Structures', 'F'),
+    -> (552455318,'Communication Networks', 'F'),
+    -> (455798411,'Optical Electronics','F'),
+    -> (301221823,'Perception','A'),
+    -> (301221823,'Social Cognition', 'B'),
+    -> (301221823,'American Political Parties', 'C'),
+    -> (556784565,'Air Quality Engineering', 'D'),
+    -> (099354543,'Patent Law', 'A'),
+    -> (574489456,'Urban Economics','F');
+Query OK, 20 rows affected (0.05 sec)
+Records: 20  Duplicates: 0  Warnings: 0
+
+mysql> select * from student;
++-----------+--------------------+------------------------+-------+------+---------------+
+| snum      | sname              | major                  | level | age  | total_credits |
++-----------+--------------------+------------------------+-------+------+---------------+
+|  99354543 | Susan Martin       | Law                    | JR    |   20 |             0 |
+| 112348546 | Joseph Thompson    | Computer Science       | SO    |   19 |             0 |
+| 115987938 | Christopher Garcia | Computer Science       | JR    |   20 |             0 |
+| 132977562 | Angela Martinez    | History                | SR    |   20 |             0 |
+| 269734834 | Thomas Robinson    | Psyhcology             | SO    |   18 |             0 |
+| 280158572 | Margaret Clark     | Animal Science         | FR    |   18 |             0 |
+| 301221823 | Juan Rodriguez     | Psyhcology             | JR    |   20 |             0 |
+| 318548912 | Dorthy Lewis       | Finance                | FR    |   18 |             0 |
+| 320874981 | Daniel Lee         | Electrical Engineering | FR    |   17 |             0 |
+| 322654189 | Lisa Walker        | Computer Science       | SO    |   17 |             0 |
+| 348121549 | Paul Hall          | Computer Science       | JR    |   18 |             0 |
+| 351565322 | Nancy Allen        | Accounting             | JR    |   19 |             0 |
+| 451519864 | Mark Young         | Finance                | FR    |   18 |             0 |
+| 455798411 | Luis Hernandez     | Electrical Engineering | FR    |   17 |             0 |
+| 462156489 | Donald King        | Mechanical Engineering | SO    |   19 |             0 |
+| 550156548 | George Wright      | Education              | SR    |   21 |             0 |
+| 552455318 | Ana Lopez          | Computer Engineering   | SR    |   19 |             0 |
+| 556784565 | Kenneth Hill       | Civil Engineering      | SR    |   21 |             0 |
+| 567354612 | Karen Scott        | Computer Engineering   | FR    |   18 |             0 |
+| 573284895 | Steven Green       | Kinesiology            | SO    |   19 |             0 |
+| 574489456 | Betty Adams        | Economics              | JR    |   20 |             0 |
+| 578875478 | Edward Baker       | Veterinary Medicine    | SR    |   21 |             0 |
++-----------+--------------------+------------------------+-------+------+---------------+
+22 rows in set (0.05 sec)
+
+mysql> select * from class;
++---------------------------------+------------------+----------+-----------+---------+
+| name                            | meets_at         | room     | fid       | credits |
++---------------------------------+------------------+----------+-----------+---------+
+| Air Quality Engineering         | TuTh 10:30-11:45 | R15      |  11564812 |       4 |
+| American Political Parties      | TuTh 2-3:15      | 20 AVW   | 619023588 |       4 |
+| Archaeology of the Incas        | MWF 3-4:15       | R128     | 248965255 |       4 |
+| Aviation Accident Investigation | TuTh 1-2:50      | Q3       |  11564812 |       2 |
+| Communication Networks          | MW 9:30-10:45    | 20 AVW   | 141582651 |       3 |
+| Dairy Herd Management           | TuTh 12:30-1:45  | R128     | 356187925 |       2 |
+| Data Structures                 | MWF 10           | R128     | 489456522 |       3 |
+| Database Systems                | MWF 12:30-1:45   | 1320 DCL | 142519864 |       4 |
+| Introduction to Math            | TuTh 8-9:30      | R128     | 489221823 |       5 |
+| Introductory Latin              | MWF 3-4:15       | R12      | 248965255 |       3 |
+| Marketing Research              | MW 10-11:15      | 1320 DCL | 489221823 |       5 |
+| Multivariate Analysis           | TuTh 2-3:15      | R15      |  90873519 |       4 |
+| Operating System Design         | TuTh 12-1:20     | 20 AVW   | 489456522 |       5 |
+| Optical Electronics             | TuTh 12:30-1:45  | R15      | 254099823 |       4 |
+| Orbital Mechanics               | MWF 8            | 1320 DCL |  11564812 |       3 |
+| Organic Chemistry               | TuTh 12:30-1:45  | R12      | 489221823 |       4 |
+| Patent Law                      | F 1-2:50         | R128     |  90873519 |       3 |
+| Perception                      | MTuWTh 3         | Q3       | 489221823 |       3 |
+| Seminar in American Art         | M 4              | R15      | 489221823 |       4 |
+| Social Cognition                | Tu 6:30-8:40     | R15      | 159542516 |       4 |
+| Urban Economics                 | MWF 11           | 20 AVW   | 489221823 |       2 |
++---------------------------------+------------------+----------+-----------+---------+
+21 rows in set (0.00 sec)
+
+mysql> select * from enrolled;
++-----------+----------------------------+-------+
+| snum      | cname                      | grade |
++-----------+----------------------------+-------+
+| 112348546 | Database Systems           | A     |
+| 115987938 | Database Systems           | B     |
+| 348121549 | Database Systems           | F     |
+| 322654189 | Database Systems           | NULL  |
+| 552455318 | Database Systems           | C     |
+| 455798411 | Operating System Design    | A     |
+| 552455318 | Operating System Design    | A     |
+| 567354612 | Operating System Design    | B     |
+| 112348546 | Operating System Design    | C     |
+| 115987938 | Operating System Design    | F     |
+| 322654189 | Operating System Design    | F     |
+| 567354612 | Data Structures            | F     |
+| 552455318 | Communication Networks     | F     |
+| 455798411 | Optical Electronics        | F     |
+| 301221823 | Perception                 | A     |
+| 301221823 | Social Cognition           | B     |
+| 301221823 | American Political Parties | C     |
+| 556784565 | Air Quality Engineering    | D     |
+|  99354543 | Patent Law                 | A     |
+| 574489456 | Urban Economics            | F     |
++-----------+----------------------------+-------+
+20 rows in set (0.00 sec)
+
+
+
+
+
+mysql> DELEMETER //
+    -> create trigger studenttotalcredits before insert on student
+    -> begin
+    -> if new.grade = 'F' THEN set new.grade = NULL;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DELEMETER //
+create trigger studenttotalcredits before insert on student
+begin
+i' at line 1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

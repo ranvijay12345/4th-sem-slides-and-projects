@@ -1,0 +1,114 @@
+Question No. 1 >>>>
+
+mysql> select fname from faculty, class, enrolled where faculty.fid = class.fid and class.name = enrolled.cname;
++------------------+
+| fname            |
++------------------+
+| Ivana Teach      |
+| Ivana Teach      |
+| Ivana Teach      |
+| Ivana Teach      |
+| Ivana Teach      |
+| Linda Davis      |
+| Linda Davis      |
+| Linda Davis      |
+| Linda Davis      |
+| Linda Davis      |
+| Linda Davis      |
+| Linda Davis      |
+| Mary Johnson     |
+| Patricia Jones   |
+| Richard Jackson  |
+| William Moore    |
+| Jennifer Thomas  |
+| John Williams    |
+| Elizabeth Taylor |
+| Richard Jackson  |
++------------------+
+20 rows in set (0.00 sec)
+
+
+Question No. 3 >>>>>>>>
+
+mysql> select student.sname from student where student.sname NOT IN (select student.sname from student , class, enrolled where student.snum = enrolled.snum and enrolled.cname = class.name );
++-----------------+
+| sname           |
++-----------------+
+| Maria White     |
+| Charles Harris  |
+| Angela Martinez |
+| Thomas Robinson |
+| Margaret Clark  |
+| Dorthy Lewis    |
+| Daniel Lee      |
+| Nancy Allen     |
+| Mark Young      |
+| Donald King     |
+| George Wright   |
+| Steven Green    |
+| Edward Baker    |
++-----------------+
+13 rows in set (0.00 sec)
+
+Question No. 4 >>>>>>>>
+
+mysql> select enrolled.cname from enrolled inner join class group by enrolled.cname having count(enrolled.cname)>=5;
++----------------------------+
+| cname                      |
++----------------------------+
+| Urban Economics            |
+| Patent Law                 |
+| Air Quality Engineering    |
+| American Political Parties |
+| Social Cognition           |
+| Perception                 |
+| Optical Electronics        |
+| Communication Networks     |
+| Data Structures            |
+| Operating System Design    |
+| Database Systems           |
++----------------------------+
+11 rows in set (0.00 sec)
+
+Question No. 5 >>>>>>>>>>
+
+mysql> select time from class, student, enrolled where student.snum=enrolled.snum and class.name = enrolled.cname and enrolled.cname like "D%" group by student.level having (count(student.sname) >= 2);
++----------------+
+| time           |
++----------------+
+| MWF 12:30-1:45 |
+| MWF 12:30-1:45 |
++----------------+
+2 rows in set (0.00 sec)
+
+
+Question No. 6 >>>>>>>>>>
+
+mysql> select sname, major, level, age from student where age > 20 and major like "% Engineering" and level = ("ER" or "SR") ;
++--------------+-------------------+-------+------+
+| sname        | major             | level | age  |
++--------------+-------------------+-------+------+
+| Kenneth Hill | Civil Engineering | SR    |   21 |
++--------------+-------------------+-------+------+
+1 row in set, 2 warnings (0.00 sec)
+
+
+Question No. 7 >>>>>>>>>>>>Doubt>>>
+
+mysql> select student.sname from student, enrolled, class, faculty where student.snum = enrolled.snum and enrolled.cname = class.name and faculty.fid = class.fid group by enrolled.cname having count(enrolled.cname < 2);
++-----------------+
+| sname           |
++-----------------+
+| Joseph Thompson |
+| Luis Hernandez  |
+| Karen Scott     |
+| Ana Lopez       |
+| Luis Hernandez  |
+| Juan Rodriguez  |
+| Juan Rodriguez  |
+| Juan Rodriguez  |
+| Kenneth Hill    |
+| Susan Martin    |
+| Betty Adams     |
++-----------------+
+11 rows in set (0.00 sec)

@@ -1,0 +1,115 @@
+                                              (((((((((((((((((((((((( Lab_Assignment 5 ))))))))))))))))))))))))
+
+
+
+
+
+
+Answar no. 1 ------------------------------------
+
+mysql> select sname, age from student where (sname, age) in (select sname, age from student where major = 'English') or (sname, age ) in (select sname, age from student, faculty,class, enrolled where student.snum = enrolled.snum and faculty.fid = class.fid and faculty.fname = 'Ivana Teach' and class.name = enrolled.cname) order by age limit 1;
++-------------+------+
+| sname       | age  |
++-------------+------+
+| Lisa Walker |   17 |
++-------------+------+
+1 row in set (0.00 sec)
+
+ Ans 2.-------------------------------------------
+
+mysql> select name from class where room = 'R128' group by name order by count(name) < 3;
++--------------------------+
+| name                     |
++--------------------------+
+| Archaeology of the Incas |
+| Dairy Herd Management    |
+| Data Structures          |
+| Introduction to Math     |
+| Patent Law               |
++--------------------------+
+5 rows in set (0.06 sec)
+
+
+Ans 3.--------------
+
+mysql> select s.age, s.level from student s
+    -> group by s.age, s.level
+    -> Having s.level IN
+    -> (select s1.level from student s1 where s1.age = s.age group by s1.level, s1.age
+    -> having count(*) >= all(select count(*) from student s2 where s1.age = s2.age group by
+    -> s2.level, s2.age));
++------+-------+
+| age  | level |
++------+-------+
+|   21 | SR    |
+|   22 | SR    |
+|   20 | JR    |
+|   19 | SO    |
+|   18 | FR    |
+|   17 | FR    |
++------+-------+
+6 rows in set (0.00 sec)
+
+Answar no. 4 -----------------------------------------------------
+
+mysql> select fname from faculty where fid in (select class.fid from class, enrolled where class.name like 'O%' and class.room = 'R15' and class.name = enrolled.cname group by class.fid having count(enrolled.snum) > 0 );
++----------------+
+| fname          |
++----------------+
+| Patricia Jones |
++----------------+
+1 row in set (0.05 sec)
+
+Ans 5. --------------------------------------------------------------
+
+mysql> select * from student where(level = 'SR') and sname IN (select sname from student natural join enrolled where cname IN (select name from faculty natural join class where room = 'R15'));
++-----------+--------------+-------------------+-------+------+
+| snum      | sname        | major             | level | age  |
++-----------+--------------+-------------------+-------+------+
+| 556784565 | Kenneth Hill | Civil Engineering | SR    |   21 |
++-----------+--------------+-------------------+-------+------+
+1 row in set (0.01 sec)
+
+
+Ans 6. ----------------------------------------------------------
+
+mysql> select name from class where (name like 'O%' or name like 'A%') and name like '%s' and name not in (select cname from enrolled);
++--------------------------+
+| name                     |
++--------------------------+
+| Archaeology of the Incas |
+| Orbital Mechanics        |
++--------------------------+
+2 rows in set (0.01 sec)
+
+
+Ans 7. ----------------------------------------------------------
+
+
+mysql> select faculty.fid, faculty.fname, count(class.fid) as No_Of_Classes
+    -> from faculty left outer join class on
+    -> faculty.fid = class.fid
+    -> group by faculty.fid;
++-----------+------------------+---------------+
+| fid       | fname            | No_Of_Classes |
++-----------+------------------+---------------+
+|  11564812 | John Williams    |             3 |
+|  90873519 | Elizabeth Taylor |             2 |
+| 141582651 | Mary Johnson     |             1 |
+| 142519864 | Ivana Teach      |             1 |
+| 159542516 | William Moore    |             1 |
+| 242518965 | James Smith      |             0 |
+| 248965255 | Barbara Wilson   |             2 |
+| 254099823 | Patricia Jones   |             1 |
+| 287321212 | Michael Miller   |             0 |
+| 356187925 | Robert Brown     |             1 |
+| 486512566 | David Anderson   |             0 |
+| 489221823 | Richard Jackson  |             6 |
+| 489456522 | Linda Davis      |             2 |
+| 548977562 | Ulysses Teach    |             0 |
+| 619023588 | Jennifer Thomas  |             1 |
++-----------+------------------+---------------+
+15 rows in set (0.02 sec)
+
+
+

@@ -1,0 +1,269 @@
+(((((((((((((((((((   Lab Assignment 4))))))))))))))))))))))))
+
+---------Answer 1------------------------------------------------------
+
+
+mysql> select s.level , avg(s.age)
+    -> from student
+    -> s group by s.level;
++-------+------------+
+| level | avg(s.age) |
++-------+------------+
+| SR    |    20.7143 |
+| JR    |    19.5000 |
+| SO    |    18.4000 |
+| FR    |    17.6667 |
++-------+------------+
+4 rows in set (0.00 sec)
+
+  Answar 2-------------------------------------------------------------
+
+
+mysql> SELECT S.level, AVG(S.age)
+    -> from student s
+    -> where s.level <> 'JR'
+    -> group by s.level;
++-------+------------+
+| level | AVG(S.age) |
++-------+------------+
+| SR    |    20.7143 |
+| SO    |    18.4000 |
+| FR    |    17.6667 |
++-------+------------+
+3 rows in set (0.01 sec)
+
+
+
+ Answar 3---------------------
+
+
+mysql> select fname, count(class.fid)
+    -> from faculty, class where faculty.fid = class.fid;
++---------------+------------------+
+| fname         | count(class.fid) |
++---------------+------------------+
+| John Williams |               21 |
++---------------+------------------+
+1 row in set (0.00 sec)
+
+Ans 4 --------------------------------
+
+
+mysql> select student.sname, student.snum from student , enrolled
+    -> where student.snum = enrolled.snum and enrolled.cname = 'Database Systems' and student.sname not in (select student.sname from student, enrolled where student.snum = enrolled.snum and enrolled.cname = 'Operating system design');
++-----------+-----------+
+| sname     | snum      |
++-----------+-----------+
+| Paul Hall | 348121549 |
++-----------+-----------+
+1 row in set (0.01 sec)
+
+Ans 5 --------------------------------
+
+mysql> select enrolled.cname, avg(age) as Student_avg_age
+    -> from enrolled, student
+    -> where student.snum = enrolled.snum
+    -> group by enrolled.cname
+    -> having count(cname) >= 2;
++-------------------------+-----------------+
+| cname                   | Student_avg_age |
++-------------------------+-----------------+
+| Database Systems        |         18.6000 |
+| Operating System Design |         18.3333 |
++-------------------------+-----------------+
+2 rows in set (0.05 sec)
+
+
+Ans 6.----------------------------------
+
+mysql> select fid from class
+    -> group by fid
+    -> having count(*) > 1;
++-----------+
+| fid       |
++-----------+
+|  11564812 |
+| 248965255 |
+| 489456522 |
+| 489221823 |
+|  90873519 |
++-----------+
+5 rows in set (0.00 sec)
+
+
+Ans 7.----------------------------------------
+
+
+mysql>  select snum from enrolled
+    -> group by snum
+    -> having count(*) >1;
++-----------+
+| snum      |
++-----------+
+| 112348546 |
+| 115987938 |
+| 322654189 |
+| 552455318 |
+| 455798411 |
+| 567354612 |
+| 301221823 |
++-----------+
+7 rows in set (0.05 sec)
+
+
+Ans 8.---------------------------------------
+
+
+mysql> select * from student
+    -> order by age asc;
++-----------+--------------------+------------------------+-------+------+
+| snum      | sname              | major                  | level | age  |
++-----------+--------------------+------------------------+-------+------+
+| 320874981 | Daniel Lee         | Electrical Engineering | FR    |   17 |
+| 322654189 | Lisa Walker        | Computer Science       | SO    |   17 |
+| 455798411 | Luis Hernandez     | Electrical Engineering | FR    |   17 |
+| 269734834 | Thomas Robinson    | Psychology             | SO    |   18 |
+| 280158572 | Margaret Clark     | Animal Science         | FR    |   18 |
+| 318548912 | Dorthy Lewis       | Finance                | FR    |   18 |
+| 348121549 | Paul Hall          | Computer Science       | JR    |   18 |
+| 451519864 | Mark Young         | Finance                | FR    |   18 |
+| 567354612 | Karen Scott        | Computer Engineering   | FR    |   18 |
+| 112348546 | Joseph Thompson    | Computer Science       | SO    |   19 |
+| 351565322 | Nancy Allen        | Accounting             | JR    |   19 |
+| 462156489 | Donald King        | Mechanical Engineering | SO    |   19 |
+| 552455318 | Ana Lopez          | Computer Engineering   | SR    |   19 |
+| 573284895 | Steven Green       | Kinesiology            | SO    |   19 |
+|  99354543 | Susan Martin       | Law                    | JR    |   20 |
+| 115987938 | Christopher Garcia | Computer Science       | JR    |   20 |
+| 132977562 | Angela Martinez    | History                | SR    |   20 |
+| 301221823 | Juan Rodriguez     | Psychology             | JR    |   20 |
+| 574489456 | Betty Adams        | Economics              | JR    |   20 |
+|  51135593 | Maria White        | English                | SR    |   21 |
+| 550156548 | George Wright      | Education              | SR    |   21 |
+| 556784565 | Kenneth Hill       | Civil Engineering      | SR    |   21 |
+| 578875478 | Edward Baker       | Veterinary Medicine    | SR    |   21 |
+|  60839453 | Charles Harris     | Architecture           | SR    |   22 |
++-----------+--------------------+------------------------+-------+------+
+24 rows in set (0.05 sec)
+
+
+Ans 9 ----------------------------------
+
+
+mysql> select sname, snum from student
+    -> where major like '% Engineering';
++----------------+-----------+
+| sname          | snum      |
++----------------+-----------+
+| Daniel Lee     | 320874981 |
+| Luis Hernandez | 455798411 |
+| Donald King    | 462156489 |
+| Ana Lopez      | 552455318 |
+| Kenneth Hill   | 556784565 |
+| Karen Scott    | 567354612 |
++----------------+-----------+
+6 rows in set (0.01 sec)
+
+
+Ans 10. -----------------------------------------------
+
+
+mysql> select major, count(snum) from student group by major having major like '% Engineering';
++------------------------+-------------+
+| major                  | count(snum) |
++------------------------+-------------+
+| Electrical Engineering |           2 |
+| Mechanical Engineering |           1 |
+| Computer Engineering   |           2 |
+| Civil Engineering      |           1 |
++------------------------+-------------+
+4 rows in set (0.01 sec)
+
+
+Ans 11.----------------------------------------------------------------
+
+
+mysql> select faculty.fname, faculty.fid
+    -> from faculty, class
+    -> where faculty.fid = class.fid and ((class.name = 'Data Structures') or (class.name = 'Operating System Design'));
++-------------+-----------+
+| fname       | fid       |
++-------------+-----------+
+| Linda Davis | 489456522 |
+| Linda Davis | 489456522 |
++-------------+-----------+
+2 rows in set (0.05 sec)
+
+
+Ans 12-----------------------------------------------------------------
+
+
+mysql> select fname, fid from faculty
+    -> where deptid = 20;
++----------------+-----------+
+| fname          | fid       |
++----------------+-----------+
+| Mary Johnson   | 141582651 |
+| Ivana Teach    | 142519864 |
+| David Anderson | 486512566 |
+| Linda Davis    | 489456522 |
+| Ulysses Teach  | 548977562 |
++----------------+-----------+
+5 rows in set (0.05 sec)
+
+
+Ans 13 ------------------------------------------------------------------
+
+
+mysql> select distinct student.sname, student.snum from student
+    -> where student.snum not in (select enrolled.snum from enrolled);
++-----------------+-----------+
+| sname           | snum      |
++-----------------+-----------+
+| Maria White     |  51135593 |
+| Charles Harris  |  60839453 |
+| Angela Martinez | 132977562 |
+| Thomas Robinson | 269734834 |
+| Margaret Clark  | 280158572 |
+| Dorthy Lewis    | 318548912 |
+| Daniel Lee      | 320874981 |
+| Nancy Allen     | 351565322 |
+| Mark Young      | 451519864 |
+| Donald King     | 462156489 |
+| George Wright   | 550156548 |
+| Steven Green    | 573284895 |
+| Edward Baker    | 578875478 |
++-----------------+-----------+
+13 rows in set (0.05 sec)
+
+
+Ans 14 ----------------------------------------
+
+
+mysql> select sname, age from student
+    -> where sname like '% H__%' ;
++----------------+------+
+| sname          | age  |
++----------------+------+
+| Charles Harris |   22 |
+| Paul Hall      |   18 |
+| Luis Hernandez |   17 |
+| Kenneth Hill   |   21 |
++----------------+------+
+4 rows in set (0.00 sec)
+
+
+Ans 15 ------------------------------
+
+
+mysql> select min(age), level from student where age >= 18 group by level having count(sname) >= 2;
++----------+-------+
+| min(age) | level |
++----------+-------+
+|       19 | SR    |
+|       18 | JR    |
+|       18 | SO    |
+|       18 | FR    |
++----------+-------+
+4 rows in set (0.01 sec)
+

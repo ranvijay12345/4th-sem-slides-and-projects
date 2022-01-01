@@ -1,0 +1,25 @@
+We have created the  9 relational tables from the ER diagram
+1.For the entity  person_owner in the ER diagram we have created the table person_owner and in this table pid is 
+  the primary key and we added the attributes aid,pid,ppid(forein keys referencing contractor table) beacause of 
+the relationship set contractor(many to one
+  from person_owner to agent).  
+2.For the relationship set contactor we have created contractor table and the primary key of the table is (aid,pid,ppid).
+
+3.For the entity agents we have created the table agent and in this table aid is the primary key and we added the attributes
+aid,pid,ppid(forein keys referencing the the contractor) because of the relationship set contractor.
+
+4.For the client entity we have created the table client and the primary key is cid.
+
+5.For the relationship set Buyer we have created the table Buyer and the primary key is (aid,cid,ppid) and 
+aid(referencing from agent(aid)),cid(referencing from client(cid)) are the forein keys.
+
+6.For the entity rent_house we have created the table rent_house and the primary key is (pid,rpid).We added the primary
+   key of preson_owner(pid) because rent_house is weak entity.
+
+7.For the relationship set owner_rent wee have created the table owner_rent and the primary key is pid.It has 
+forein keys pid(referencing person_owner),rpid(referencing rent_house).
+
+8.For the sell_house we have created the table sell_house and its primary key is (pid,spid).
+
+9.For the relationship set owner_sell we have created the table owner_sell and the primary key for this table is pid 
+and pid is the forein key referencing from person_owner and other forein key is spid referencing the table sell_house.

@@ -1,0 +1,17 @@
+https://www3.ntu.edu.sg/home/ehchua/programming/sql/MySQL_Beginner.html
+
+
+https://www.javatpoint.com/sql-rename-database
+
+
+
+
+https://www.javatpoint.com/sql-rename-database
+
+
+
+https://www.w3schools.com/sql/sql_having.asp
+
+
+
+https://www.w3schools.com/sql/sql_drop_table.asp               //  tutorial
